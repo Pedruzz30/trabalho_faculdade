@@ -16,6 +16,11 @@ body{
   color: var(--azul-escuro);
   background: linear-gradient(180deg, var(--branco), color-mix(in srgb, var(--azul) 8%, white));
   line-height: 1.6;
+
+  /* === Sticky footer layout === */
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh; /* garante altura da janela mesmo com barras do mobile */
 }
 
 img{
@@ -73,6 +78,10 @@ a:hover{ text-decoration: underline; }
 }
 
 /* ==================== PÁGINAS ==================== */
+/* O main/.page-content cresce para empurrar o footer */
+main,
+.page-content{ flex: 1; }
+
 .page-content{ padding: 24px 0 40px; }
 .section{ padding: 8px 0; }
 .page-title{
