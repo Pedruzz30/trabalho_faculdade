@@ -1,51 +1,35 @@
-/* ==================== TEMA OXAGUIÃ (enxuto) ==================== */
-/* Paleta mínima: branco + azul (celeste/escuro) + prata */
 :root{
   --branco: #ffffff;
-  --azul: #87c8ff;          /* azul celeste (destaque) */
-  --azul-escuro: #1e293b;   /* texto/contraste */
-  --prata: #d5dee9;         /* bordas/linhas */
+  --azul: #87c8ff;           /* destaque */
+  --azul-principal: #1e293b; /* texto base */
+  --prata: #d5dee9;          /* bordas */
+  --azul-escuro: #0b5fa5;    /* acento */
 }
 
-/* Base e tipografia */
+/* ======= BASE ======= */
 *{ box-sizing: border-box; }
 html, body{ height: 100%; }
 body{
   margin: 0;
   font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Noto Sans", Arial;
-  color: var(--azul-escuro);
+  color: var(--azul-principal);
   background: linear-gradient(180deg, var(--branco), color-mix(in srgb, var(--azul) 8%, white));
   line-height: 1.6;
-
-  /* === Sticky footer layout === */
   display: flex;
   flex-direction: column;
-  min-height: 100dvh; /* garante altura da janela mesmo com barras do mobile */
+  min-height: 100dvh; /* sticky footer */
 }
-
-img{
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* Links */
-a{ color: var(--azul-escuro); text-decoration: none; }
+img{ max-width: 100%; height: auto; display: block; }
+a{ color: var(--azul-principal); text-decoration: none; }
 a:hover{ text-decoration: underline; }
-
-/* Texto auxiliar */
 .muted{ color: #5b6b7a; }
-
-/* Container simples (fixo, sem variável) */
 .container{ max-width: 1000px; margin: 0 auto; padding: 0 16px; }
-
-/* Foco acessível */
 :focus-visible{
   outline: 3px solid color-mix(in srgb, var(--azul) 55%, white);
   outline-offset: 2px;
 }
 
-/* ==================== HEADER & MENU ==================== */
+/* ======= HEADER & MENU ======= */
 .site-header{
   position: sticky; top: 0; z-index: 50;
   background: rgba(255,255,255,0.92);
@@ -56,15 +40,13 @@ a:hover{ text-decoration: underline; }
   display: flex; align-items: center; justify-content: space-between;
   padding: 12px 0;
 }
-.logo{ font-weight: 700; color: var(--azul-escuro); letter-spacing: .2px; }
-
-/* Menu */
+.logo{ font-weight: 700; color: var(--azul-principal); letter-spacing: .2px; }
 .menu{ display: flex; gap: 8px; flex-wrap: wrap; }
 .nav-link{
   display: inline-block;
   padding: 8px 12px;
   border-radius: 999px;
-  color: var(--azul-escuro);
+  color: var(--azul-principal);
   transition: background .2s ease;
 }
 .nav-link:hover{
@@ -77,11 +59,8 @@ a:hover{ text-decoration: underline; }
   font-weight: 700;
 }
 
-/* ==================== PÁGINAS ==================== */
-/* O main/.page-content cresce para empurrar o footer */
-main,
-.page-content{ flex: 1; }
-
+/* ======= PÁGINAS ======= */
+main, .page-content{ flex: 1; }
 .page-content{ padding: 24px 0 40px; }
 .section{ padding: 8px 0; }
 .page-title{
@@ -90,24 +69,99 @@ main,
   color: #0d2644;
 }
 
-/* ==================== HOME (HERO) ==================== */
+/* ======= TIPOGRAFIA GLOBAL DENTRO DO CONTEÚDO ======= */
+/* aplica cores/acentos a todas as páginas, sem afetar header/footer */
+.page-content .page-title{
+  position: relative;
+  color: #0a3261;
+}
+.page-content .page-title::after{
+  content: "";
+  display: block;
+  width: 84px; height: 4px;
+  margin-top: 8px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--azul-escuro), var(--azul));
+}
+/* Sobre linha no h2  */
+.page-content h2{
+  position: relative;
+  padding-left: 12px;
+  margin-top: 22px;
+  color: #0d2644;
+}
+.page-content h2.project-title{ padding-left: 0; } 
+.page-content h2:not(.project-title)::before{
+  content: "";
+  position: absolute;
+  left: 0; top: 0.2em;
+  width: 4px; height: 0.9em;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--azul-escuro), var(--azul));
+}
+.page-content h3{
+  color: var(--azul);
+  margin-top: 14px;
+}
+.page-content strong{
+  color: var(--azul-escuro);
+  font-weight: 700;
+}
+.page-content p{ color: #2a3b52; }
+.page-content ul{ padding-left: 1.2rem; }
+.page-content li{ margin: 6px 0; }
+.page-content li::marker{ color: var(--azul-escuro); }
+/* links só no conteúdo (menu/footer não mudam) */
+.page-content a{
+  color: var(--azul-escuro);
+  text-decoration-color: color-mix(in srgb, var(--azul-escuro) 40%, transparent);
+}
+.page-content a:hover{
+  text-decoration-color: var(--azul-escuro);
+}
+
+/* ======= HOME ======= */
 .hero{
   background: linear-gradient(180deg, var(--branco), color-mix(in srgb, var(--azul) 12%, white));
   border-top: 1px solid color-mix(in srgb, var(--prata) 80%, white);
   border-bottom: 1px solid var(--prata);
   padding: clamp(28px, 6vw, 56px) 0;
 }
-
-.hero-inner{ display: grid; gap: 24px; align-items: center; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); }
-.hero-image img{ border-radius: 50%; max-width: 240px; margin: 0 auto; }
-.hero-text h1{
-  margin: 6px 0 12px 0;
-  font-size: clamp(1.9rem, 4.2vw, 2.6rem);
-  color: #0a3261;
+.hero-inner{
+  display: grid; gap: 24px; align-items: center;
+  grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
 }
-.lead{ font-size: 1.06rem; color: #5b6b7a; }
 
-/* ==================== CONTEÚDO (artigos/itens) ==================== */
+/* ===== IMAGEM DE PERFIL ===== */
+.hero-image{
+  width: clamp(160px, 28vw, 240px);
+  aspect-ratio: 1 / 1;          
+  border-radius: 999px;          
+  overflow: hidden;              
+  margin: 0 auto;               
+  box-shadow: 0 8px 24px rgba(0,0,0,.06);
+}
+
+.hero-image img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;             
+  object-position: 50% 40%;      
+  border-radius: 0 !important;   
+  max-width: none !important;    
+  margin: 0 !important;          
+}
+
+/* ==== REMOVER DIVISÕES/LINHAS ==== */
+.site-header{ border-bottom: none !important; }
+.hero{
+  border-top: none !important;
+  border-bottom: none !important;
+ 
+}
+.site-footer{ border-top: none !important; }
+
+/* ======= CONTEÚDO  ======= */
 article{
   background: var(--branco);
   border: 1px solid var(--prata);
@@ -119,7 +173,7 @@ article{
   transition: box-shadow .2s ease;
 }
 
-/* ==================== FORMULÁRIO (Contato) ==================== */
+/* ======= FORMULÁRIO ======= */
 .contact-form{ display: grid; gap: 12px; max-width: 620px; }
 .form-row{ display: grid; gap: 6px; }
 label{ font-weight: 700; color: #0d2644; }
@@ -129,7 +183,7 @@ input, textarea{
   border: 1px solid var(--prata);
   border-radius: 10px;
   background: var(--branco);
-  color: var(--azul-escuro);
+  color: var(--azul-principal);
   outline: none;
 }
 input:focus, textarea:focus{
@@ -137,7 +191,7 @@ input:focus, textarea:focus{
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--azul) 25%, transparent);
 }
 
-/* ==================== BOTÕES ==================== */
+/* ======= BOTÕES ======= */
 .btn{
   display: inline-block;
   padding: 10px 14px;
@@ -153,12 +207,12 @@ input:focus, textarea:focus{
 .btn:hover{ filter: brightness(1.03); text-decoration: none; }
 .btn.outline{
   background: transparent;
-  color: var(--azul-escuro);
+  color: var(--azul-principal);
   border-color: var(--azul);
 }
 .btn:disabled{ opacity: .6; cursor: not-allowed; }
 
-/* ==================== LISTAS INLINE (links do portfólio) ==================== */
+/* ======= LISTAS ======= */
 .inline{ display: flex; gap: .6rem; flex-wrap: wrap; padding: 0; list-style: none; }
 .inline a{
   padding: .35rem .7rem;
@@ -167,7 +221,7 @@ input:focus, textarea:focus{
   background: var(--branco);
 }
 
-/* ==================== FOOTER ==================== */
+/* ======= FOOTER ======= */
 .site-footer{
   background: rgba(255,255,255,0.85);
   border-top: 1px solid var(--prata);
@@ -179,14 +233,62 @@ input:focus, textarea:focus{
 }
 .footer-inner p{ margin: 0; }
 
-/* ==================== RESPONSIVO ==================== */
+/* ======= SOBRE  ======= */
+.sobre .section{
+  background: linear-gradient(180deg, rgba(156,213,255,0.06), rgba(255,255,255,0) 40%);
+  border-top: 1px solid color-mix(in srgb, var(--prata) 50%, white);
+}
+.sobre .content .muted{
+  color: #4c5f76;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--azul) 20%, white), transparent 60%);
+  border-left: 4px solid var(--azul-escuro);
+  padding: 10px 12px;
+  border-radius: 8px;
+}
+
+/* ======= PORTFÓLIO ======= */
+.projects{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  padding: 0;
+  list-style: none;
+}
+.project-card{
+  background: var(--branco);
+  border: 1px solid var(--prata);
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: 0 2px 4px rgba(0,0,0,.04);
+  display: flex;
+  flex-direction: column;
+}
+.project-head{
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 8px; flex-wrap: wrap;
+}
+.project-title{
+  margin: 0;
+  font-size: clamp(1.05rem, 2.2vw, 1.15rem);
+  color: #0d2644;
+}
+.project-desc{ margin: 0; color: #5b6b7a; }
+.actions{ margin-top: auto; }
+.btn.github{
+  display: inline-flex; align-items: center; gap: 8px;
+  text-decoration: none;
+}
+.btn.github .icon{
+  display: inline-block;
+  vertical-align: middle;
+  fill: currentColor;
+}
+
+/* ======= RESPONSIVO ======= */
 @media (max-width: 640px){
   .header-inner{ flex-direction: column; align-items: flex-start; gap: 8px; }
   .menu{ gap: 6px; }
   .footer-inner{ flex-direction: column; align-items: flex-start; }
-}
-
-/* Preferência do usuário: reduzir movimento */
-@media (prefers-reduced-motion: reduce){
-  *{ animation: none !important; transition: none !important; }
+  .page-content h2{ padding-left: 10px; }
+  .page-content h2:not(.project-title)::before{ height: 0.85em; }
 }
